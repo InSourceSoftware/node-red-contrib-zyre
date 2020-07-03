@@ -1,0 +1,45 @@
+<script type="text/javascript">
+  RED.nodes.registerType('zyre-join', {
+    category: 'function',
+    color: '#295f92',
+    defaults: {
+      name: {
+        value: 'zyre-join',
+        required: true
+      },
+      topic: {
+        value: ''
+      },
+      zyre: {
+        value: '',
+        type: 'zyre-peer',
+        required: true
+      }
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: 'zeromq.png',
+    label: function () {
+      return this.name || 'zyre-join'
+    }
+  })
+</script>
+
+<script type="text/html" data-template-name="zyre-join">
+  <div class="form-row">
+    <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Name">
+  </div>
+  <div class="form-row">
+    <label for="node-input-topic"><i class="icon-tag"></i> Topic</label>
+    <input type="text" id="node-input-topic" placeholder="Topic">
+  </div>
+  <div class="form-row">
+    <label for="node-input-zyre"><i class="icon-tag"></i> Zyre Peer</label>
+    <select id="node-input-zyre"></select>
+  </div>
+</script>
+
+<script type="text/html" data-help-name="zyre-join">
+  <p>Get notified when a peer joins a group in the Zyre network.</p>
+</script>

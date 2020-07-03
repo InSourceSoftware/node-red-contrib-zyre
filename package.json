@@ -1,0 +1,46 @@
+{
+  "name": "node-red-contrib-zyre",
+  "version": "0.0.1",
+  "description": "Node-RED nodes for Zyre - an open-source framework for proximity-based peer-to-peer applications.",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/InSourceSoftware/node-red-contrib-zyre.git"
+  },
+  "keywords": [
+    "zyre",
+    "zre",
+    "zeromq",
+    "zmq",
+    "libzmq",
+    "p2p",
+    "peer",
+    "peer-to-peer",
+    "node",
+    "node-red"
+  ],
+  "author": "Steve Riesenberg <sjohnr@hotmail.com>",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/InSourceSoftware/node-red-contrib-zyre/issues"
+  },
+  "homepage": "https://github.com/InSourceSoftware/node-red-contrib-zyre#readme",
+  "dependencies": {
+    "zyre.js": "^1.2.2"
+  },
+  "node-red": {
+    "nodes": {
+      "zyre-peer": "zyre-peer.js",
+      "zyre-connect": "zyre-connect.js",
+      "zyre-disconnect": "zyre-disconnect.js",
+      "zyre-expired": "zyre-expired.js",
+      "zyre-join": "zyre-join.js",
+      "zyre-leave": "zyre-leave.js",
+      "zyre-whisper": "zyre-whisper.js",
+      "zyre-shout": "zyre-shout.js"
+    }
+  }
+}
