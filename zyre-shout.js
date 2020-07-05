@@ -6,7 +6,7 @@ module.exports = function(RED) {
     this.zyre = RED.nodes.getNode(config.zyre).zyre
 
     let peer = this.zyre._name
-    let onShout = (id, name, message, group) => {
+    let onShout = (identity, name, message, group) => {
       if (this.topic && this.topic !== group) {
         return
       }
@@ -23,8 +23,8 @@ module.exports = function(RED) {
 
       let msg = {
         topic: group,
-        identity: id,
-        name: name,
+        identity,
+        name,
         payload: message
       }
       this.debug(`${name} to ${peer}: ${message}`)

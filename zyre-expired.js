@@ -4,14 +4,13 @@ module.exports = function(RED) {
     this.zyre = RED.nodes.getNode(config.zyre).zyre
 
     let peer = this.zyre._name
-    let onExpired = (id, name) => {
+    let onExpired = (identity, name) => {
       this.log(`${peer} has been expired from ${name}`)
       let msg = {
         topic: 'expired',
         payload: {
-          id,
-          name,
-          peer
+          identity,
+          name
         }
       }
       this.send(msg)

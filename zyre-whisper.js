@@ -6,7 +6,11 @@ module.exports = function(RED) {
     this.zyre = RED.nodes.getNode(config.zyre).zyre
 
     let peer = this.zyre._name
-    let onWhisper = (id, name, message) => {
+    let onWhisper = (identity, name, message) => {
+      if (this.topic && this.topic !== identity) {
+        return
+      }
+
       if (this.output === 'string') {
         try {
           message = message.toString()
@@ -18,9 +22,9 @@ module.exports = function(RED) {
       }
 
       let msg = {
-        topic: id,
-        identity: id,
-        name: name,
+        topic: identity,
+        identity,
+        name,
         payload: message
       }
       this.debug(`${name} to ${peer}: ${message}`)

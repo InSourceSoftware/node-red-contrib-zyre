@@ -5,16 +5,15 @@ module.exports = function(RED) {
     this.zyre = RED.nodes.getNode(config.zyre).zyre
 
     let peer = this.zyre._name
-    let onJoin = (id, name, group) => {
+    let onJoin = (identity, name, group) => {
       this.debug(`${name} has joined ${group}`)
 
       let msg = {
         topic: 'join',
         payload: {
-          id,
+          identity,
           name,
-          group,
-          peer
+          group
         }
       }
       this.send(msg)

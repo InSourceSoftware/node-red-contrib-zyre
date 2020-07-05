@@ -10,16 +10,15 @@ module.exports = function(RED) {
       text: peer
     })
 
-    let onConnect = (id, name, headers) => {
+    let onConnect = (identity, name, headers) => {
       this.log(`${peer} is now connected to ${name}`)
 
       let msg = {
         topic: 'connect',
         payload: {
-          id,
+          identity,
           name,
-          headers,
-          peer
+          headers
         }
       }
       this.send(msg)
