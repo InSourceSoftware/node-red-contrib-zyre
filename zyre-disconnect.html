@@ -1,7 +1,7 @@
 <script type="text/javascript">
   RED.nodes.registerType('zyre-disconnect', {
-    category: 'function',
-    color: '#295f92',
+    category: 'Zyre',
+    color: '#a6bbcf',
     defaults: {
       name: {
         value: 'zyre-disconnect',
@@ -24,12 +24,12 @@
 
 <script type="text/html" data-template-name="zyre-disconnect">
   <div class="form-row">
-    <label for="node-input-name"><i class="icon-tag"></i> Name</label>
-    <input type="text" id="node-input-name" placeholder="Name">
+    <label for="node-input-zyre"><i class="fa fa-server"></i> Zyre Peer</label>
+    <select id="node-input-zyre"></select>
   </div>
   <div class="form-row">
-    <label for="node-input-zyre"><i class="icon-tag"></i> Zyre Peer</label>
-    <select id="node-input-zyre"></select>
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Name">
   </div>
 </script>
 

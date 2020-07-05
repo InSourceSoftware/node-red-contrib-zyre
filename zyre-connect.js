@@ -4,12 +4,14 @@ module.exports = function(RED) {
     this.zyre = RED.nodes.getNode(config.zyre).zyre
 
     let peer = this.zyre._name
+    this.status({
+      fill: 'blue',
+      shape: 'dot',
+      text: peer
+    })
+
     let onConnect = (id, name, headers) => {
       this.log(`${peer} is now connected to ${name}`)
-      this.status({
-        fill: 'blue',
-        shape: 'dot'
-      })
 
       let msg = {
         topic: 'connect',

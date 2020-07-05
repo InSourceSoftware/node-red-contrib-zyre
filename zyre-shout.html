@@ -1,7 +1,7 @@
 <script type="text/javascript">
   RED.nodes.registerType('zyre-shout', {
-    category: 'function',
-    color: '#295f92',
+    category: 'Zyre',
+    color: '#a6bbcf',
     defaults: {
       name: {
         value: 'zyre-shout',
@@ -13,6 +13,10 @@
       zyre: {
         value: '',
         type: 'zyre-peer',
+        required: true
+      },
+      output: {
+        value: 'json',
         required: true
       }
     },
@@ -27,16 +31,24 @@
 
 <script type="text/html" data-template-name="zyre-shout">
   <div class="form-row">
-    <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+    <label for="node-input-zyre"><i class="fa fa-server"></i> Zyre Peer</label>
+    <select id="node-input-zyre"></select>
+  </div>
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
     <input type="text" id="node-input-name" placeholder="Name">
   </div>
   <div class="form-row">
-    <label for="node-input-topic"><i class="icon-tag"></i> Topic</label>
+    <label for="node-input-topic"><i class="fa fa-tasks"></i> Topic</label>
     <input type="text" id="node-input-topic" placeholder="Topic">
   </div>
   <div class="form-row">
-    <label for="node-input-zyre"><i class="icon-tag"></i> Zyre Peer</label>
-    <select id="node-input-zyre"></select>
+    <label for="node-input-output"><i class="fa fa-map"></i> Output</label>
+    <select id="node-input-output">
+      <option value="buffer">a binary Buffer</option>
+      <option value="string">a String if possible</option>
+      <option value="json">a JSON object if possible</option>
+    </select>
   </div>
 </script>
 

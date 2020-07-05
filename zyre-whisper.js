@@ -2,26 +2,38 @@ module.exports = function(RED) {
   function ZyreWhisper(config) {
     RED.nodes.createNode(this, config)
     this.topic = config.topic
+    this.output = config.output
     this.zyre = RED.nodes.getNode(config.zyre).zyre
 
     let peer = this.zyre._name
     let onWhisper = (id, name, message) => {
-      this.debug(`${name} to ${peer}: ${message}`)
+      if (this.output === 'string') {
+        try {
+          message = message.toString()
+        } catch (e) {}
+      } else if (this.output === 'json') {
+        try {
+          message = JSON.parse(message)
+        } catch (e) {}
+      }
 
       let msg = {
-        topic: 'whisper',
-        payload: {
-          id,
-          name,
-          message,
-          peer
-        }
+        topic: id,
+        identity: id,
+        name: name,
+        payload: message
       }
+      this.debug(`${name} to ${peer}: ${message}`)
       this.send(msg)
     }
 
     let onInput = (msg, send, done) => {
       let topic = msg.topic || this.topic
+      let payload = msg.payload
+      if (typeof payload === 'object') {
+        payload = JSON.stringify(payload)
+      }
+
       this.debug(`${peer} is attempting to send message to ${topic}`)
 
       let peers = this.zyre.getPeers()
@@ -32,11 +44,11 @@ module.exports = function(RED) {
         if (done) {
           done(error)
         } else {
-          this.error(err)
+          this.error(error)
         }
       } else {
         this.debug(`${peer} is sending message to ${peers[identity].name}`)
-        this.zyre.whisper(identity, msg.payload)
+        this.zyre.whisper(identity, payload)
         if (done) {
           done()
         }

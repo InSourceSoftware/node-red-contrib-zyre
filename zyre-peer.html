@@ -3,8 +3,7 @@
     category: 'config',
     defaults: {
       name: {
-        value: 'localhost',
-        required: true
+        value: ''
       },
       port: {
         value: 5670,
@@ -28,37 +27,57 @@
       },
       groups: {
         value: ''
+      },
+      headers: {
+        value: {}
+      },
+      encoding: {
+        value: ''
       }
     },
     label: function () {
       return this.name
+    },
+    oneditprepare: function() {
+      $('#node-config-input-headers').typedInput({
+        type: 'json',
+        types: ['json']
+      })
     }
   })
 </script>
 
 <script type="text/html" data-template-name="zyre-peer">
   <div class="form-row">
-    <label for="node-config-input-name"><i class="icon-bookmark"></i> Name</label>
+    <label for="node-config-input-name"><i class="fa fa-tag"></i> Name</label>
     <input type="text" id="node-config-input-name" placeholder="localhost">
   </div>
   <div class="form-row">
-    <label for="node-config-input-port"><i class="icon-bookmark"></i> Port</label>
+    <label for="node-config-input-port"><i class="fa fa-gear"></i> Port</label>
     <input type="text" id="node-config-input-port" placeholder="5670">
   </div>
   <div class="form-row">
-    <label for="node-config-input-evasive"><i class="icon-bookmark"></i> Evasive</label>
+    <label for="node-config-input-evasive"><i class="fa fa-gear"></i> Evasive</label>
     <input type="text" id="node-config-input-evasive" placeholder="5000">
   </div>
   <div class="form-row">
-    <label for="node-config-input-expired"><i class="icon-bookmark"></i> Expired</label>
+    <label for="node-config-input-expired"><i class="fa fa-gear"></i> Expired</label>
     <input type="text" id="node-config-input-expired" placeholder="30000">
   </div>
   <div class="form-row">
-    <label for="node-config-input-interval"><i class="icon-bookmark"></i> Interval</label>
+    <label for="node-config-input-interval"><i class="fa fa-gear"></i> Interval</label>
     <input type="text" id="node-config-input-interval" placeholder="1000">
   </div>
   <div class="form-row">
-    <label for="node-config-input-groups"><i class="icon-bookmark"></i> Groups</label>
+    <label for="node-config-input-groups"><i class="fa fa-group"></i> Groups</label>
     <input type="text" id="node-config-input-groups" placeholder="Groups">
+  </div>
+  <div class="form-row">
+    <label for="node-config-input-headers"><i class="fa fa-navicon"></i> Headers</label>
+    <input type="text" id="node-config-input-headers" placeholder="Headers">
+  </div>
+  <div class="form-row">
+    <label for="node-config-input-encoding"><i class="fa fa-code"></i> Encoding</label>
+    <input type="text" id="node-config-input-encoding" placeholder="utf8">
   </div>
 </script>

@@ -2,29 +2,44 @@ module.exports = function(RED) {
   function ZyreShout(config) {
     RED.nodes.createNode(this, config)
     this.topic = config.topic
+    this.output = config.output
     this.zyre = RED.nodes.getNode(config.zyre).zyre
 
     let peer = this.zyre._name
     let onShout = (id, name, message, group) => {
-      this.debug(`${name} to ${peer}: ${message}`)
+      if (this.topic && this.topic !== group) {
+        return
+      }
+
+      if (this.output === 'string') {
+        try {
+          message = message.toString()
+        } catch (e) {}
+      } else if (this.output === 'json') {
+        try {
+          message = JSON.parse(message)
+        } catch (e) {}
+      }
 
       let msg = {
-        topic: 'shout',
-        payload: {
-          id,
-          name,
-          message,
-          group,
-          peer
-        }
+        topic: group,
+        identity: id,
+        name: name,
+        payload: message
       }
+      this.debug(`${name} to ${peer}: ${message}`)
       this.send(msg)
     }
 
     let onInput = (msg, send, done) => {
       let topic = msg.topic || this.topic
+      let payload = msg.payload
+      if (typeof payload === 'object') {
+        payload = JSON.stringify(payload)
+      }
+
+      this.zyre.shout(topic, payload)
       this.debug(`${peer} sent message to ${topic}`)
-      this.zyre.shout(topic, msg.payload)
       if (done) {
         done()
       }
