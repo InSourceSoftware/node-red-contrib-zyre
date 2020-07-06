@@ -6,6 +6,12 @@ module.exports = function(RED) {
     this.zyre = RED.nodes.getNode(config.zyre).zyre
 
     let peer = this.zyre._name
+    this.status({
+      fill: 'blue',
+      shape: 'dot',
+      text: peer
+    })
+
     let onShout = (identity, name, message, group) => {
       if (this.topic && this.topic !== group) {
         return

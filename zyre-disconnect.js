@@ -4,6 +4,12 @@ module.exports = function(RED) {
     this.zyre = RED.nodes.getNode(config.zyre).zyre
 
     let peer = this.zyre._name
+    this.status({
+      fill: 'blue',
+      shape: 'dot',
+      text: peer
+    })
+
     let onDisconnect = (identity, name) => {
       this.log(`${peer} has been disconnected from ${name}`)
       let msg = {

@@ -1,7 +1,7 @@
 module.exports = function(RED) {
   let Zyre = require('zyre.js')
-  
-  let names = (process.env.ZYRE_PEER_NAMES || '3-D,Sam Baines,Emmett "Doc" Brown,Jules Brown,Verne Brown,Clara Clayton,Copernicus,Einstein,Griff,Dave McFly,George McFly,Marty McFly,Linda McFly,Lorraine Baines-McFly,Maggie McFly,Marlene McFly,Marty McFly Jr.,Seamus McFly,William "Willie" McFly,Lou,Match,Douglas J. Needles,Jennifer Parker,Skinhead,Edna Strickland,Gerald Strickland,James Strickland,Biff Tannen,Biff Tannen Jr.,Buford "Mad Dog" Tannen,Irving "Kid" Tannen,Goldie Wilson,Goldie Wilson III').split(',').map(s => s.trim()).filter(s => s !== '')
+
+  let names = (process.env.ZYRE_PEER_NAMES || '').split(',').map(s => s.trim()).filter(s => s !== '')
   let events = [
     'connect',
     'disconnect',
@@ -20,7 +20,7 @@ module.exports = function(RED) {
     this.expired = config.expired
     this.interval = config.interval
     this.groups = (config.groups || '').split(',').map(s => s.trim()).filter(s => s !== '')
-    this.headers = JSON.parse(config.headers || {})
+    this.headers = JSON.parse(config.headers || '{}')
     this.encoding = config.encoding
 
     this.zyre = new Zyre({

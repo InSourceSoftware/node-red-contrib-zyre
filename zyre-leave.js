@@ -5,6 +5,12 @@ module.exports = function(RED) {
     this.zyre = RED.nodes.getNode(config.zyre).zyre
 
     let peer = this.zyre._name
+    this.status({
+      fill: 'blue',
+      shape: 'dot',
+      text: peer
+    })
+
     let onLeave = (identity, name, group) => {
       this.debug(`${name} has left ${group}`)
 
