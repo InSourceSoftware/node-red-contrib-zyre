@@ -15,7 +15,7 @@ module.exports = function(RED) {
       this.debug(`${name} has left ${group}`)
 
       let msg = {
-        topic: 'leave',
+        topic: group,
         payload: {
           identity,
           name,

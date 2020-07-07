@@ -13,7 +13,7 @@ module.exports = function(RED) {
     let onDisconnect = (identity, name) => {
       this.log(`${peer} has been disconnected from ${name}`)
       let msg = {
-        topic: 'disconnect',
+        topic: identity,
         payload: {
           identity,
           name

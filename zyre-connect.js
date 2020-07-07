@@ -14,7 +14,7 @@ module.exports = function(RED) {
       this.log(`${peer} is now connected to ${name}`)
 
       let msg = {
-        topic: 'connect',
+        topic: identity,
         payload: {
           identity,
           name,

@@ -13,7 +13,7 @@ module.exports = function(RED) {
     let onExpired = (identity, name) => {
       this.log(`${peer} has been expired from ${name}`)
       let msg = {
-        topic: 'expired',
+        topic: identity,
         payload: {
           identity,
           name

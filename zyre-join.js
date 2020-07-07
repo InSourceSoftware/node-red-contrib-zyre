@@ -15,7 +15,7 @@ module.exports = function(RED) {
       this.debug(`${name} has joined ${group}`)
 
       let msg = {
-        topic: 'join',
+        topic: group,
         payload: {
           identity,
           name,
