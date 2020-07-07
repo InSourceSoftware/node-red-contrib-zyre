@@ -34,5 +34,16 @@
 </script>
 
 <script type="text/html" data-help-name="zyre-disconnect">
-  <p>Get notified when a peer disconnects to the Zyre network.</p>
+  <p>Get notified when a peer disconnects from the Zyre network.</p>
+
+  <h3>Outputs</h3>
+  <dl class="message-properties">
+    <dt>topic <span class="property-type">string</span></dt>
+    <dd>The identity of the peer that disconnected from the Zyre network.</dd>
+    <dt>payload <span class="property-type">object</span></dt>
+    <dd>Information about the disconnected peer, including <code>identity</code> and <code>name</code>.</dd>
+  </dl>
+
+  <h3>Details</h3>
+  <p>This node outputs a message whenever a peer disconnects from the Zyre network, and is sent after the expired message if applicable. If you captured headers from the connect event, use this node to clean up flow or global variables.</p>
 </script>

@@ -42,4 +42,23 @@
 
 <script type="text/html" data-help-name="zyre-leave">
   <p>Get notified when a peer leaves a group in the Zyre network, or programmatically leave a group.</p>
+
+  <h3>Inputs</h3>
+  <dl class="message-properties">
+    <dt>topic <span class="property-type">string</span></dt>
+    <dd>The name of the group to leave. Leave blank to pass <code>msg.topic</code>.</dd>
+    <dt>payload <span class="property-type">string</span></dt>
+    <dd>The payload is only used if topic was left blank and <code>msg.topic</code> was not populated.</dd>
+  </dl>
+
+  <h3>Outputs</h3>
+  <dl class="message-properties">
+    <dt>topic <span class="property-type">string</span></dt>
+    <dd>The name of the group that was left.</dd>
+    <dt>payload <span class="property-type">object</span></dt>
+    <dd>Information about the peer and group, including <code>identity</code>, <code>name</code>, and <code>group</code>.</dd>
+  </dl>
+
+  <h3>Details</h3>
+  <p>This node outputs a message when a peer leaves a group. You can use this to track group membership.</p>
 </script>

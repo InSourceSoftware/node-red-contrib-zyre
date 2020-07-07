@@ -35,4 +35,15 @@
 
 <script type="text/html" data-help-name="zyre-expired">
   <p>Get notified when a peer expires from the Zyre network.</p>
+
+  <h3>Outputs</h3>
+  <dl class="message-properties">
+    <dt>topic <span class="property-type">string</span></dt>
+    <dd>The identity of the peer that expired from the Zyre network.</dd>
+    <dt>payload <span class="property-type">object</span></dt>
+    <dd>Information about the expired peer, including <code>identity</code> and <code>name</code>.</dd>
+  </dl>
+
+  <h3>Details</h3>
+  <p>This node outputs a message whenever a peer expires from the Zyre network, which occurs if the peer is not heard from for a configurable amount of time (<code>expired</code> field on the zyre peer config node). You don't usually need to use this node, as disconnect fires immediately afterwards, but it can be used to detect peers that time out from the network and did not disconnect gracefully.</p>
 </script>

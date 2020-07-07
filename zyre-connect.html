@@ -35,4 +35,15 @@
 
 <script type="text/html" data-help-name="zyre-connect">
   <p>Get notified when a peer connects to the Zyre network.</p>
+
+  <h3>Outputs</h3>
+  <dl class="message-properties">
+    <dt>topic <span class="property-type">string</span></dt>
+    <dd>The identity of the peer that connected to the Zyre network.</dd>
+    <dt>payload <span class="property-type">object</span></dt>
+    <dd>Information about the connected peer, including <code>identity</code>, <code>name</code>, and <code>headers</code>.</dd>
+  </dl>
+
+  <h3>Details</h3>
+  <p>This node outputs a message whenever a peer connects to the zyre network. <code>msg.payload</code> contains headers that allow peers to broadcast capabilities or unique attributes they wish to share with the network. It's a good idea to capture this information in a flow or global variable if applicable, so you can use it later.</p>
 </script>

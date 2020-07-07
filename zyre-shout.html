@@ -54,4 +54,29 @@
 
 <script type="text/html" data-help-name="zyre-shout">
   <p>Get notified when a peer shouts to a group, or send a shout to a group on the Zyre network.</p>
+
+  <h3>Inputs</h3>
+  <dl class="message-properties">
+    <dt>topic <span class="property-type">string</span></dt>
+    <dd>The name of the group to shout to. Leave blank to pass <code>msg.topic</code>.</dd>
+    <dt>payload <span class="property-type">object | string | buffer</span></dt>
+    <dd>The payload of the message to send.</dd>
+  </dl>
+
+  <h3>Outputs</h3>
+  <dl class="message-properties">
+    <dt>topic <span class="property-type">string</span></dt>
+    <dd>The name of the group.</dd>
+    <dt>identity <span class="property-type">string</span></dt>
+    <dd>The identity of the peer that sent the message.</dd>
+    <dt>name <span class="property-type">string</span></dt>
+    <dd>The name of the peer that sent the message.</dd>
+    <dt>payload <span class="property-type">object | string | buffer</span></dt>
+    <dd>The payload of the received message.</dd>
+  </dl>
+
+  <h3>Details</h3>
+  <p><code>msg.payload</code> is used as the payload of the shout. If it contains an Object, it will be converted to a JSON string before being sent. If it contains a binary Buffer, the message will be sent as-is.</p>
+  <p>This node outputs a message when a peer shouts to a group that this peer has joined. The payload can be converted to a JSON object or a string as desired. If a binary Buffer is selected and <code>raw</code> is set as the encoding (in the zyre peer config node), the payload will be a binary Buffer.</p>
+  <p>When the topic is populated, this node only outputs messages for that group.</p>
 </script>
