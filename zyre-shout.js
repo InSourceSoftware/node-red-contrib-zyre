@@ -38,7 +38,7 @@ module.exports = function(RED) {
     }
 
     let onInput = (msg, send, done) => {
-      let topic = msg.topic || this.topic
+      let topic = this.topic || msg.topic
       let payload = msg.payload
       if (typeof payload === 'object') {
         payload = JSON.stringify(payload)

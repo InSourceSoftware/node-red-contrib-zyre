@@ -26,7 +26,7 @@ module.exports = function(RED) {
     }
 
     let onInput = (msg, send, done) => {
-      let topic = msg.topic || this.topic || msg.payload
+      let topic = this.topic || msg.topic || msg.payload
       this.debug(`${peer} is leaving ${topic}`)
 
       this.zyre.leave(topic)
