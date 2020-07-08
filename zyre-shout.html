@@ -77,6 +77,6 @@
 
   <h3>Details</h3>
   <p><code>msg.payload</code> is used as the payload of the shout. If it contains an Object, it will be converted to a JSON string before being sent. If it contains a binary Buffer, the message will be sent as-is.</p>
-  <p>This node outputs a message when a peer shouts to a group that this peer has joined. The payload can be converted to a JSON object or a string as desired. If a binary Buffer is selected and <code>raw</code> is set as the encoding (in the zyre peer config node), the payload will be a binary Buffer.</p>
-  <p>When the topic is populated, this node only outputs messages for that group.</p>
+  <p>This node outputs a message when a peer shouts to a group that this peer has joined. The payload can be converted to a JSON object or a string as desired. If a binary Buffer is selected and "raw" is set as the <code>encoding</code> (in the zyre peer config node), the payload will be a binary Buffer.</p>
+  <p>When the topic is populated, this node only outputs messages for that group. This can be used to filter input to a connected node.</p>
 </script>
