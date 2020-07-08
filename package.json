@@ -4,7 +4,7 @@
   "description": "Node-RED nodes for Zyre - an open-source framework for proximity-based peer-to-peer applications.",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -28,9 +28,6 @@
     "url": "https://github.com/InSourceSoftware/node-red-contrib-zyre/issues"
   },
   "homepage": "https://github.com/InSourceSoftware/node-red-contrib-zyre#readme",
-  "dependencies": {
-    "zyre.js": "^1.2.2"
-  },
   "node-red": {
     "nodes": {
       "zyre-peer": "zyre-peer.js",
@@ -42,5 +39,13 @@
       "zyre-whisper": "zyre-whisper.js",
       "zyre-shout": "zyre-shout.js"
     }
+  },
+  "dependencies": {
+    "zyre.js": "^1.2.2"
+  },
+  "devDependencies": {
+    "mocha": "^8.0.1",
+    "node-red": "^1.1.0",
+    "node-red-node-test-helper": "^0.2.5"
   }
 }
