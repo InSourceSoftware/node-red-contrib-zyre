@@ -22,7 +22,11 @@
     "node",
     "node-red"
   ],
-  "author": "Steve Riesenberg <sjohnr@hotmail.com>",
+  "author": {
+    "name": "Steve Riesenberg",
+    "email": "sjohnr@hotmail.com",
+    "url": "https://insource.io"
+  },
   "license": "MPL-2.0",
   "bugs": {
     "url": "https://github.com/InSourceSoftware/node-red-contrib-zyre/issues"
