@@ -1,0 +1,382 @@
+[
+  {
+    "id": "a8dc5d0e.5b5c4",
+    "type": "tab",
+    "label": "Zyre Demo",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "48bceff9.bb7eb8",
+    "type": "zyre-connect",
+    "z": "a8dc5d0e.5b5c4",
+    "name": "connect",
+    "zyre": "663ac01c.661488",
+    "x": 120,
+    "y": 160,
+    "wires": [
+      [
+        "b8b1ea9a.bb9798"
+      ]
+    ]
+  },
+  {
+    "id": "a55a2035.8ecbf",
+    "type": "zyre-connect",
+    "z": "a8dc5d0e.5b5c4",
+    "name": "connect",
+    "zyre": "f94346a0.f3892",
+    "x": 120,
+    "y": 240,
+    "wires": [
+      [
+        "b8b1ea9a.bb9798"
+      ]
+    ]
+  },
+  {
+    "id": "53c2cd14.7df994",
+    "type": "zyre-connect",
+    "z": "a8dc5d0e.5b5c4",
+    "name": "connect",
+    "zyre": "e5de91ee.26ddc8",
+    "x": 120,
+    "y": 320,
+    "wires": [
+      [
+        "b8b1ea9a.bb9798"
+      ]
+    ]
+  },
+  {
+    "id": "6472da0b.9fc9f4",
+    "type": "debug",
+    "z": "a8dc5d0e.5b5c4",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "false",
+    "x": 650,
+    "y": 520,
+    "wires": []
+  },
+  {
+    "id": "b8b1ea9a.bb9798",
+    "type": "switch",
+    "z": "a8dc5d0e.5b5c4",
+    "name": "is-bridge-node",
+    "property": "payload.headers['X-Primary-Node']",
+    "propertyType": "msg",
+    "rules": [
+      {
+        "t": "eq",
+        "v": "true",
+        "vt": "str"
+      },
+      {
+        "t": "eq",
+        "v": "false",
+        "vt": "str"
+      }
+    ],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 2,
+    "x": 400,
+    "y": 280,
+    "wires": [
+      [
+        "6c6bf046.b1d7f"
+      ],
+      []
+    ]
+  },
+  {
+    "id": "6c6bf046.b1d7f",
+    "type": "change",
+    "z": "a8dc5d0e.5b5c4",
+    "name": "",
+    "rules": [
+      {
+        "t": "set",
+        "p": "bridge",
+        "pt": "global",
+        "to": "payload",
+        "tot": "msg"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 530,
+    "y": 400,
+    "wires": [
+      [
+        "6472da0b.9fc9f4"
+      ]
+    ]
+  },
+  {
+    "id": "b71993fa.6f3148",
+    "type": "inject",
+    "z": "a8dc5d0e.5b5c4",
+    "name": "hello",
+    "topic": "",
+    "payload": "{\"greeting\":\"Hello\"}",
+    "payloadType": "json",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "x": 590,
+    "y": 640,
+    "wires": [
+      [
+        "69fa3073.87227"
+      ]
+    ]
+  },
+  {
+    "id": "69fa3073.87227",
+    "type": "change",
+    "z": "a8dc5d0e.5b5c4",
+    "name": "set msg.topic to bridge.identity",
+    "rules": [
+      {
+        "t": "set",
+        "p": "topic",
+        "pt": "msg",
+        "to": "bridge.identity",
+        "tot": "global"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 850,
+    "y": 640,
+    "wires": [
+      [
+        "b73bf006.f09af8"
+      ]
+    ]
+  },
+  {
+    "id": "b73bf006.f09af8",
+    "type": "zyre-whisper",
+    "z": "a8dc5d0e.5b5c4",
+    "name": "whisper",
+    "topic": "",
+    "zyre": "f94346a0.f3892",
+    "output": "json",
+    "x": 660,
+    "y": 760,
+    "wires": [
+      [
+        "3df86d34.1e698a"
+      ]
+    ]
+  },
+  {
+    "id": "fef2086.69b6078",
+    "type": "zyre-whisper",
+    "z": "a8dc5d0e.5b5c4",
+    "name": "whisper",
+    "topic": "",
+    "zyre": "663ac01c.661488",
+    "output": "json",
+    "x": 180,
+    "y": 760,
+    "wires": [
+      [
+        "a24ad9e4.19514",
+        "1d8d0f13.506ff1"
+      ]
+    ]
+  },
+  {
+    "id": "a24ad9e4.19514",
+    "type": "debug",
+    "z": "a8dc5d0e.5b5c4",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "x": 270,
+    "y": 880,
+    "wires": []
+  },
+  {
+    "id": "3df86d34.1e698a",
+    "type": "debug",
+    "z": "a8dc5d0e.5b5c4",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "x": 750,
+    "y": 880,
+    "wires": []
+  },
+  {
+    "id": "6eb474a6.d4eea4",
+    "type": "comment",
+    "z": "a8dc5d0e.5b5c4",
+    "name": "",
+    "info": "Whisper only emits an event when the configured peer is whispered *to*, while messages arriving at the node are whispered *from* the configured peer to another peer (in the `topic` field).",
+    "x": 775,
+    "y": 760,
+    "wires": [],
+    "l": false
+  },
+  {
+    "id": "1d8d0f13.506ff1",
+    "type": "change",
+    "z": "a8dc5d0e.5b5c4",
+    "name": "",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "{\"reply\":\"Hi!\"}",
+        "tot": "json"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 420,
+    "y": 760,
+    "wires": [
+      [
+        "1e322bad.68b17c"
+      ]
+    ]
+  },
+  {
+    "id": "95bbb257.57c108",
+    "type": "comment",
+    "z": "a8dc5d0e.5b5c4",
+    "name": "",
+    "info": "Since the topic of a whisper is the identity of a sender, a reply is as simple as setting a new payload and routing it back into the whisper node. You can also create a new node for the same peer, if the circular flow is confusing.",
+    "x": 435,
+    "y": 820,
+    "wires": [],
+    "l": false
+  },
+  {
+    "id": "34cc2023.66e7d",
+    "type": "zyre-connect",
+    "z": "a8dc5d0e.5b5c4",
+    "name": "connect",
+    "zyre": "ed9af35d.24c8",
+    "x": 120,
+    "y": 400,
+    "wires": [
+      [
+        "b8b1ea9a.bb9798"
+      ]
+    ]
+  },
+  {
+    "id": "8f07ac25.6a8dd8",
+    "type": "inject",
+    "z": "a8dc5d0e.5b5c4",
+    "name": "hello",
+    "topic": "nodered02",
+    "payload": "{\"greeting\":\"Hello\"}",
+    "payloadType": "json",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "x": 110,
+    "y": 640,
+    "wires": [
+      [
+        "fef2086.69b6078"
+      ]
+    ]
+  },
+  {
+    "id": "1e322bad.68b17c",
+    "type": "zyre-whisper",
+    "z": "a8dc5d0e.5b5c4",
+    "name": "whisper",
+    "topic": "",
+    "zyre": "663ac01c.661488",
+    "output": "json",
+    "x": 520,
+    "y": 880,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "663ac01c.661488",
+    "type": "zyre-peer",
+    "z": "",
+    "name": "nodered01",
+    "port": "5670",
+    "evasive": "5000",
+    "expired": "30000",
+    "interval": "1000",
+    "groups": "events",
+    "headers": "{\"X-Primary-Node\":\"true\"}",
+    "encoding": ""
+  },
+  {
+    "id": "f94346a0.f3892",
+    "type": "zyre-peer",
+    "z": "",
+    "name": "nodered02",
+    "port": "5670",
+    "evasive": "5000",
+    "expired": "30000",
+    "interval": "1000",
+    "groups": "events",
+    "headers": "{\"X-Primary-Node\":\"false\"}",
+    "encoding": ""
+  },
+  {
+    "id": "e5de91ee.26ddc8",
+    "type": "zyre-peer",
+    "z": "",
+    "name": "nodered03",
+    "port": "5670",
+    "evasive": "5000",
+    "expired": "30000",
+    "interval": "1000",
+    "groups": "events",
+    "headers": "{\"X-Primary-Node\":\"false\"}",
+    "encoding": ""
+  },
+  {
+    "id": "ed9af35d.24c8",
+    "type": "zyre-peer",
+    "z": "",
+    "name": "nodered04",
+    "port": "5670",
+    "evasive": "5000",
+    "expired": "30000",
+    "interval": "1000",
+    "groups": "events",
+    "headers": "{\"X-Primary-Node\":\"false\"}",
+    "encoding": ""
+  }
+]
