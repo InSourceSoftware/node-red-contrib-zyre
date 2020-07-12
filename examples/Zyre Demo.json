@@ -66,7 +66,7 @@
     "id": "b8b1ea9a.bb9798",
     "type": "switch",
     "z": "a8dc5d0e.5b5c4",
-    "name": "is-bridge-node",
+    "name": "is-primary-node",
     "property": "payload.headers['X-Primary-Node']",
     "propertyType": "msg",
     "rules": [
@@ -101,7 +101,7 @@
     "rules": [
       {
         "t": "set",
-        "p": "bridge",
+        "p": "primary",
         "pt": "global",
         "to": "payload",
         "tot": "msg"
@@ -144,13 +144,13 @@
     "id": "69fa3073.87227",
     "type": "change",
     "z": "a8dc5d0e.5b5c4",
-    "name": "set msg.topic to bridge.identity",
+    "name": "set msg.topic to primary.identity",
     "rules": [
       {
         "t": "set",
         "p": "topic",
         "pt": "msg",
-        "to": "bridge.identity",
+        "to": "primary.identity",
         "tot": "global"
       }
     ],
