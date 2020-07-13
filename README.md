@@ -12,13 +12,6 @@ Run the following command in your Node-RED user directory - typically `~/.node-r
 
     npm install node-red-contrib-zyre
 
-**Note:** This package has not yet been released. To preview the package, build the package from source:
-
-    # Replace the following with your path to node-red
-    cd ~/.node-red
-    git clone git@github.com/InSourceSoftware/node-red-contrib-zyre.git
-    npm install node-red-contrib-zyre
-
 Setup
 --
 
