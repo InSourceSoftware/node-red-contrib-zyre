@@ -2,6 +2,7 @@ module.exports = function(RED) {
   let Zyre = require('zyre.js')
 
   let names = (process.env.ZYRE_PEER_NAMES || '').split(',').map(s => s.trim()).filter(s => s !== '')
+  let peers = {}
 
   function ZyrePeerNode(config) {
     RED.nodes.createNode(this, config)
@@ -36,37 +37,35 @@ module.exports = function(RED) {
         }
       })
 
-      return this.zyre.start(() => this.groups.forEach(group => this.zyre.join(group)))
+      return this.zyre.start()
+        .then(() => this.groups.forEach(group => this.zyre.join(group)))
         .then(() => this.log(`Started zyre peer: ${this.name}`))
         // Cache Zyre instance in global context
-        .then(() => globalContext.set(this.name, this.zyre))
+        .then(() => peers[this.name] = this.zyre)
     }
 
     let stopZyrePeer = () => {
-      return this.zyre.stop(() => this.groups.forEach(group => this.zyre.leave(group)))
-        .then(() => this.log(`Stopped zyre peer: ${this.name}`))
+      this.groups.forEach(group => this.zyre.leave(group))
+      return this.zyre.stop(() => this.log(`Stopped zyre peer: ${this.name}`))
+        .then(() => delete peers[this.name])
     }
 
-    // Check global context for cached instance
-    let globalContext = this.context().global
-    this.zyre = globalContext.get(this.name)
-    if (this.zyre) {
-      if (this.name === this.zyre._name
-          && this.port === this.zyre._bport
-          && this.evasive === this.zyre._evasive
-          && this.interval === this.zyre._binterval
-          && Object.keys(this.headers).length === Object.keys(this.zyre._headers || {}).length
-          && Object.keys(this.headers).every(key => this.headers[key] === this.zyre._headers[key])
-          && this.encoding === this.zyre._encoding) {
-        // Reuse existing peer
-        return
-      }
-
-      // Destroy old zyre peer before initializing new
-      stopZyrePeer().then(() => startZyrePeer())
-    } else {
+    // Check for cached instance
+    this.zyre = peers[this.name]
+    if (!this.zyre) {
       // Initialize new zyre peer
       startZyrePeer()
+    } else if (this.name !== this.zyre._name
+        || this.port !== this.zyre._bport
+        || this.evasive !== this.zyre._evasive
+        || this.interval !== this.zyre._binterval
+        || this.groups.length !== this.zyre._zyreNode._groups.length
+        || this.groups.some(group => this.zyre._zyreNode._groups.indexOf(group) < 0)
+        || Object.keys(this.headers).length !== Object.keys(this.zyre._headers || {}).length
+        || Object.keys(this.headers).some(key => this.headers[key] !== this.zyre._headers[key])
+        || this.encoding !== this.zyre._encoding) {
+      // Destroy old zyre peer before initializing new
+      stopZyrePeer().then(() => startZyrePeer())
     }
   }
 
