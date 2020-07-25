@@ -12,15 +12,6 @@ module.exports = function(RED) {
     this.headers = JSON.parse(config.headers || '{}')
     this.encoding = config.encoding || 'utf8'
     this.names = (process.env.ZYRE_PEER_NAMES || '').split(',').map(s => s.trim()).filter(s => s !== '')
-    this.events = [
-      'connect',
-      'disconnect',
-      'expired',
-      'whisper',
-      'shout',
-      'join',
-      'leave'
-    ]
 
     this.zyre = new Zyre({
       name: this.names.length > 0 ? this.names[Math.floor(Math.random() * this.names.length)] : this.name,
@@ -36,7 +27,6 @@ module.exports = function(RED) {
     }
 
     let onClose = (removed, done) => {
-      this.events.forEach(event => this.zyre.removeAllListeners(event))
       this.groups.forEach(group => this.zyre.leave(group))
 
       this.zyre.stop(() => this.log(`Stopped zyre peer: ${this.name}`))
