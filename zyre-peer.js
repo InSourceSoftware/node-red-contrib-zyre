@@ -1,30 +1,29 @@
 module.exports = function(RED) {
   let Zyre = require('zyre.js')
 
-  let names = (process.env.ZYRE_PEER_NAMES || '').split(',').map(s => s.trim()).filter(s => s !== '')
-  let events = [
-    'connect',
-    'disconnect',
-    'expired',
-    'whisper',
-    'shout',
-    'join',
-    'leave'
-  ]
-
   function ZyrePeerNode(config) {
     RED.nodes.createNode(this, config)
     this.name = config.name
-    this.port = config.port
-    this.evasive = config.evasive
-    this.expired = config.expired
-    this.interval = config.interval
+    this.port = Number.parseInt(config.port)
+    this.evasive = Number.parseInt(config.evasive)
+    this.expired = Number.parseInt(config.expired)
+    this.interval = Number.parseInt(config.interval)
     this.groups = (config.groups || '').split(',').map(s => s.trim()).filter(s => s !== '')
     this.headers = JSON.parse(config.headers || '{}')
-    this.encoding = config.encoding
+    this.encoding = config.encoding || 'utf8'
+    this.names = (process.env.ZYRE_PEER_NAMES || '').split(',').map(s => s.trim()).filter(s => s !== '')
+    this.events = [
+      'connect',
+      'disconnect',
+      'expired',
+      'whisper',
+      'shout',
+      'join',
+      'leave'
+    ]
 
     this.zyre = new Zyre({
-      name: names.length > 0 ? names[Math.floor(Math.random() * names.length)] : this.name,
+      name: this.names.length > 0 ? this.names[Math.floor(Math.random() * this.names.length)] : this.name,
       headers: this.headers,
       evasive: this.evasive,
       expired: this.expired,
@@ -37,24 +36,16 @@ module.exports = function(RED) {
     }
 
     let onClose = (removed, done) => {
-      events.forEach(event => this.zyre.removeAllListeners(event))
+      this.events.forEach(event => this.zyre.removeAllListeners(event))
+      this.groups.forEach(group => this.zyre.leave(group))
 
-      this.zyre.stop(() => {
-        if (this.groups) {
-          this.groups.forEach(group => this.zyre.leave(group))
-        }
-        this.log(`Stopped zyre peer: ${this.name}`)
-      })
+      this.zyre.stop(() => this.log(`Stopped zyre peer: ${this.name}`))
         .then(() => done && done())
     }
 
-    this.zyre.start(() => {
-      if (this.groups) {
-        this.groups.forEach(group => this.zyre.join(group))
-      }
-      this.log(`Started zyre peer: ${this.name}`)
-    })
-      .then(() => this.on('close', onClose))
+    this.on('close', onClose)
+    this.zyre.start(() => this.log(`Started zyre peer: ${this.name}`))
+      .then(() => this.groups.forEach(group => this.zyre.join(group)))
   }
 
   RED.nodes.registerType('zyre-peer', ZyrePeerNode)
